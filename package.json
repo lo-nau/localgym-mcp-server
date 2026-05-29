@@ -1,6 +1,6 @@
 {
   "name": "localgym-mcp-server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Read-only MCP server for searching, comparing, and recommending UK gyms using the LocalGym Agent API.",
   "type": "commonjs",
   "bin": {

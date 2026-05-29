@@ -17,6 +17,7 @@
  *   }
  */
 
+const { version: PACKAGE_VERSION } = require('../package.json');
 const API_BASE = (process.env.LOCALGYM_API_BASE || 'https://localgym.uk').replace(/\/$/, '');
 const MCP_RATE_LIMIT_WINDOW_MS = Number(process.env.LOCALGYM_MCP_RATE_LIMIT_WINDOW_MS || 60_000);
 const MCP_RATE_LIMIT_MAX = Number(process.env.LOCALGYM_MCP_RATE_LIMIT_MAX || 60);
@@ -149,7 +150,7 @@ async function handle(msg) {
         result: {
           protocolVersion: '2024-11-05',
           capabilities: { tools: {} },
-          serverInfo: { name: 'localgym', version: '0.1.0' },
+          serverInfo: { name: 'localgym', version: PACKAGE_VERSION },
         },
       });
     }
