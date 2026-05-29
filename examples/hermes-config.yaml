@@ -1,0 +1,6 @@
+mcp_servers:
+  localgym:
+    command: "node"
+    args: ["/absolute/path/to/localgym-mcp-server/bin/localgym-mcp-server.cjs"]
+    env:
+      LOCALGYM_API_BASE: "https://localgym.uk"
