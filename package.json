@@ -32,5 +32,12 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "mcpName": "io.github.lo-nau/localgym-mcp-server",
+  "files": [
+    "bin/",
+    "examples/",
+    "README.md",
+    "LICENSE"
+  ]
 }
