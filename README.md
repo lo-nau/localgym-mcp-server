@@ -23,6 +23,14 @@ LocalGym covers 18,000+ UK gyms and fitness centres. This MCP server gives AI as
 
 ## Quick start
 
+Run directly from npm:
+
+```bash
+npx -y localgym-mcp-server
+```
+
+Or clone and run locally:
+
 ```bash
 git clone https://github.com/lo-nau/localgym-mcp-server.git
 cd localgym-mcp-server
@@ -33,10 +41,28 @@ npm start
 The server uses `https://localgym.uk` by default. To override it:
 
 ```bash
-LOCALGYM_API_BASE=https://localgym.uk npm start
+LOCALGYM_API_BASE=https://localgym.uk npx -y localgym-mcp-server
 ```
 
 ## MCP client config
+
+Recommended npm-based config:
+
+```json
+{
+  "mcpServers": {
+    "localgym": {
+      "command": "npx",
+      "args": ["-y", "localgym-mcp-server"],
+      "env": {
+        "LOCALGYM_API_BASE": "https://localgym.uk"
+      }
+    }
+  }
+}
+```
+
+Local clone config:
 
 ```json
 {
@@ -53,6 +79,17 @@ LOCALGYM_API_BASE=https://localgym.uk npm start
 ```
 
 ## Hermes Agent config
+
+```yaml
+mcp_servers:
+  localgym:
+    command: "npx"
+    args: ["-y", "localgym-mcp-server"]
+    env:
+      LOCALGYM_API_BASE: "https://localgym.uk"
+```
+
+If you cloned the repo locally instead, use:
 
 ```yaml
 mcp_servers:
