@@ -153,6 +153,8 @@ You can also smoke-test tool discovery by sending MCP JSON-RPC frames over stdio
 
 V1 is free, read-only, and attribution-first. Please link back to returned `localgym_url` values when using LocalGym data in public answers.
 
+The public LocalGym Agent API enforces server-side rate limits. This MCP wrapper also includes a local courtesy limiter, defaulting to 60 tool calls per 60 seconds per running MCP process. You can lower it with `LOCALGYM_MCP_RATE_LIMIT_MAX` or `LOCALGYM_MCP_RATE_LIMIT_WINDOW_MS`; high-volume/commercial use should be arranged first.
+
 For high-volume, commercial, affiliate, or claimed-listing use, contact enquiries@localgym.uk.
 
 ## License

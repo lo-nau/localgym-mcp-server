@@ -18,6 +18,21 @@
  */
 
 const API_BASE = (process.env.LOCALGYM_API_BASE || 'https://localgym.uk').replace(/\/$/, '');
+const MCP_RATE_LIMIT_WINDOW_MS = Number(process.env.LOCALGYM_MCP_RATE_LIMIT_WINDOW_MS || 60_000);
+const MCP_RATE_LIMIT_MAX = Number(process.env.LOCALGYM_MCP_RATE_LIMIT_MAX || 60);
+let mcpRateLimitBucket = { count: 0, resetAt: Date.now() + MCP_RATE_LIMIT_WINDOW_MS };
+
+function enforceLocalRateLimit() {
+  const now = Date.now();
+  if (now >= mcpRateLimitBucket.resetAt) {
+    mcpRateLimitBucket = { count: 0, resetAt: now + MCP_RATE_LIMIT_WINDOW_MS };
+  }
+  mcpRateLimitBucket.count += 1;
+  if (mcpRateLimitBucket.count > MCP_RATE_LIMIT_MAX) {
+    const retryAfterSeconds = Math.max(Math.ceil((mcpRateLimitBucket.resetAt - now) / 1000), 1);
+    throw new Error(`LocalGym MCP local rate limit exceeded (${MCP_RATE_LIMIT_MAX} requests per ${Math.ceil(MCP_RATE_LIMIT_WINDOW_MS / 1000)}s). Retry after ${retryAfterSeconds}s or contact enquiries@localgym.uk for high-volume/commercial access.`);
+  }
+}
 
 const tools = [
   {
@@ -65,6 +80,7 @@ const tools = [
 ];
 
 async function api(path, params = {}) {
+  enforceLocalRateLimit();
   const url = new URL(path, API_BASE);
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') url.searchParams.set(key, String(value));
